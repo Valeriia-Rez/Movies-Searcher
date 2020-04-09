@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    color: $whiteColor;
+    &:hover {
+        text-decoration: none;
+        color: $whiteColor;
+    }
+}
+
+input {
+    outline: none;
+    color: $primaryColor;
+}

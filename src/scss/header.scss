@@ -1,0 +1,23 @@
+.header {
+    max-width: 1360px;
+    &__wrapper {
+        background-color: #611a4f;
+    }
+    &__menu {
+        list-style-type: none;
+    }
+    &__link {
+        color: #f3d033;
+        &:hover {
+            text-decoration: none;
+            color: #fce995;
+        }
+    }
+    &__icon {
+        font-size: 20px;
+        cursor: pointer;
+        &:hover {
+            color: #fce995;
+        }
+    }
+}
