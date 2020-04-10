@@ -4,7 +4,7 @@
         font-size: 18px;
     }
     &__wrapper {
-        background-color: #611a4f;
+        background-color: $primaryColor;
     }
     &__mobile {
         background: url("/img/photo.jpg");
@@ -15,11 +15,11 @@
         list-style-type: none;
     }
     &__link {
-        color: #f3d033;
+        color: $secondaryColor;
         &:hover,
         &:active {
             text-decoration: none;
-            color: #fce995;
+            color: $tertiaryColor;
         }
         @media screen and(max-width:767px) {
             color: $whiteColor;
@@ -35,7 +35,7 @@
 
 .icon:hover,
 .icon:active {
-    color: #fce995;
+    color: $tertiaryColor;
 }
 
 .gamburger {
@@ -44,3 +44,18 @@
     display: block;
     height: 7px;
 }
+
+
+/*.header__navbar.expanded .header__nav {
+    background: -o-linear-gradient( left, var(--main-color) 63%, var(--white-color) 65%);
+    background: -webkit-gradient( linear, left top, right top, color-stop(63%, var(--main-color)), color-stop(65%, var(--white-color)));
+    background: linear-gradient( to right, var(--main-color) 63%, var(--white-color) 65%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header__navbar.expanded .header__icon,
+.header__menuSearch {
+    position: absolute;
+}*/
