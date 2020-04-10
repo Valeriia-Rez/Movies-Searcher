@@ -7,6 +7,7 @@
 body {
     font-size: 16px;
     font-family: 'Lato', sans-serif;
+    color: $grayColor;
 }
 
 a {
@@ -20,4 +21,8 @@ a {
 input {
     outline: none;
     color: $grayColor;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
 }

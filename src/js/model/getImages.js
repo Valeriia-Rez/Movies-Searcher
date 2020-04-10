@@ -10,10 +10,15 @@ export default class Images {
     }
 
     async getImages() {
-        const res = await axios(`https://api.themoviedb.org/3/configuration?api_key=${this.key}`);
-        this.result = res.data.images;
-        console.log(this.result);
-        this.secure_url = this.result.secure_base_url;
-        this.poster_sizes = this.result.poster_sizes[2];
+        try {
+            const res = await axios(`https://api.themoviedb.org/3/configuration?api_key=${this.key}`);
+            this.result = res.data.images;
+
+            this.secure_url = this.result.secure_base_url;
+            this.poster_sizes = this.result.poster_sizes[2];
+        } catch (error) {
+            alert("error");
+        }
+
     }
 }

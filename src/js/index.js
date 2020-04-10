@@ -1,34 +1,38 @@
 import "../scss/main.scss";
 import "regenerator-runtime/runtime";
 import RenderApp from "./view/viewController";
-import Model from "./model/modelController";
+import GetPopularMovies from "./model/getListMovies";
 import Images from "./model/getImages";
+import DisplayPopularMovies from "./view/viewPopularMoviesController";
+import GetHighestRatedMovies from "./model/getHighestRatedMovies";
+import DisplayHighestRatedMovies from "./view/viewHighestRatedMoviesController";
 
-const view = new RenderApp();
-const model = new Model();
+const renderApp = new RenderApp();
+const popularMovies = new GetPopularMovies();
 const images = new Images();
+const popular = new DisplayPopularMovies();
+const highestMovies = new GetHighestRatedMovies();
+const highest = new DisplayHighestRatedMovies();
 
 
 const showMobileMenu = () => {
-    view.openMobileMenu();
+    renderApp.openMobileMenu();
 }
 
-
 const hiddenMobileMenu = () => {
-    view.closeMobileMenu();
+    renderApp.closeMobileMenu();
 }
 
 const renderComponents = async() => {
-    view.renderHeaderComponents();
-    view.renderFooterComponent();
-    await model.getListMovies();
+    renderApp.renderHeaderComponents();
+    renderApp.renderFooterComponent();
+    await popularMovies.getListMovies();
     await images.getImages();
-
-    view.displayPopularMovies(model.result, images.secure_url, images.poster_sizes);
-
+    popular.displayMovies(popularMovies.result, images.secure_url, images.poster_sizes);
+    await highestMovies.getListHighestRatedMovies();
+    highest.displayMovies(highestMovies.result, images.secure_url, images.poster_sizes);
     document.querySelector("[data-selector='mobile-open']").addEventListener("click", showMobileMenu);
     document.querySelector("[data-selector='mobile-close']").addEventListener("click", hiddenMobileMenu);
-
 }
 
 

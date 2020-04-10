@@ -43,10 +43,10 @@ export default class Header {
                         <nav class="header__nav">
                             <ul class="list-group list-group-horizontal header__menu">
                                 <li><a href="#" class="header__link px-2 px-lg-3">Home</a></li>
-                                <li><a href="#" class="header__link pr-2 pr-lg-3">New Releases</a></li>
+                                <li><a href="#" class="header__link pr-2 pr-lg-3">Highest Rated</a></li>
                                 <li><a href="#" class="header__link pr-2 pr-lg-3">Most Popular</a></li>
-                                <li><a href="#" class="header__link pr-2 pr-lg-3">News</a></li>
-                                <li><a href="#" class="header__link">Contact Us</a></li>
+                                <li><a href="#" class="header__link pr-2 pr-lg-3">New</a></li>
+                                <li><a href="#" class="header__link">Comming soon</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -64,10 +64,10 @@ export default class Header {
                 <nav>
                     <ul class="pl-3 py-2 header__menu">
                         <li><a href="#" class="header__link">Home</a></li>
-                        <li><a href="#" class="header__link">New Releases</a></li>
+                        <li><a href="#" class="header__link">Highest Rated</a></li>
                         <li><a href="#" class="header__link">Most Popular</a></li>
-                        <li><a href="#" class="header__link">News</a></li>
-                        <li><a href="#" class="header__link">Contact Us</a></li>
+                        <li><a href="#" class="header__link">New</a></li>
+                        <li><a href="#" class="header__link">Comming Soon</a></li>
                     </ul>
                 </nav>
             </div>

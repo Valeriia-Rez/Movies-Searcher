@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default class Model {
+export default class GetPopularMovies {
     constructor() {
         this.result = null;
 
@@ -13,7 +13,7 @@ export default class Model {
 
             this.result = res.data.results;
 
-            console.log(this.result);
+
 
         } catch (error) {
             alert("error");
