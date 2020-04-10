@@ -10,4 +10,11 @@ export default class RenderApp {
     renderHeaderComponents() {
         header.renderHeader();
     }
+
+    openMobileMenu() {
+        header.openMobileHandler();
+    }
+    closeMobileMenu() {
+        header.closeMobileHandler();
+    }
 }

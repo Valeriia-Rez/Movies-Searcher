@@ -1,23 +1,46 @@
 .header {
     max-width: 1360px;
+    &__heading {
+        font-size: 18px;
+    }
     &__wrapper {
         background-color: #611a4f;
+    }
+    &__mobile {
+        background: url("/img/photo.jpg");
+        background-size: cover;
+        background-position: center;
     }
     &__menu {
         list-style-type: none;
     }
     &__link {
         color: #f3d033;
-        &:hover {
+        &:hover,
+        &:active {
             text-decoration: none;
             color: #fce995;
+        }
+        @media screen and(max-width:767px) {
+            color: $whiteColor;
+            font-size: 25px;
+            line-height: 50px;
         }
     }
     &__icon {
         font-size: 20px;
         cursor: pointer;
-        &:hover {
-            color: #fce995;
-        }
     }
+}
+
+.icon:hover,
+.icon:active {
+    color: #fce995;
+}
+
+.gamburger {
+    border-bottom: 2px solid $whiteColor;
+    width: 20px;
+    display: block;
+    height: 7px;
 }
