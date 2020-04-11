@@ -1,10 +1,14 @@
 .header {
-    max-width: 1360px;
+    background-color: $primaryColor;
+    position: sticky;
+    z-index: 999;
+    top: 0;
     &__heading {
         font-size: 18px;
     }
     &__wrapper {
-        background-color: $primaryColor;
+        max-width: 1360px;
+        margin: 0 auto;
     }
     &__mobile {
         background: url("/img/photo.jpg");

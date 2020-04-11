@@ -1,6 +1,7 @@
 export const renderFooter = () => {
-    let footer = document.querySelector("[data-selector='footer']");
-    footer.innerHTML = `
+
+    return `
+    <footer class="footer">
                 <div class="footer__wrapper text-white py-4 text-center">
                     <p>Developed in vanilla JS by Valeriia Rieznik</p>
                     <div class="col-lg-6 mx-auto">
@@ -20,5 +21,6 @@ export const renderFooter = () => {
                     <br>
                     <span>Email: valeria09122016@gmail.com</span>
                 </div>
+                </footer>
     `;
 }
