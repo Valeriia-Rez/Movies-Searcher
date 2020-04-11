@@ -1,6 +1,5 @@
 export default class Header {
 
-
     openMobileHandler() {
         const openMobileBtn = document.querySelector("[data-selector='mobile-open']");
         const closeMobileBtn = document.querySelector("[data-selector='mobile-close']");
