@@ -1,9 +1,12 @@
 .section {
     font-size: 20px;
     color: $primaryColor;
-    &__img:hover {
-        opacity: 0.7;
-        cursor: pointer;
+    &__img {
+        height: 372px;
+        &:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
     }
     &__title {
         &:hover {

@@ -9,6 +9,7 @@
     &__wrapper {
         max-width: 1360px;
         margin: 0 auto;
+        border-bottom: 2px solid #411836;
     }
     &__mobile {
         background: url("/img/photo.jpg");
@@ -49,17 +50,7 @@
     height: 7px;
 }
 
-
-/*.header__navbar.expanded .header__nav {
-    background: -o-linear-gradient( left, var(--main-color) 63%, var(--white-color) 65%);
-    background: -webkit-gradient( linear, left top, right top, color-stop(63%, var(--main-color)), color-stop(65%, var(--white-color)));
-    background: linear-gradient( to right, var(--main-color) 63%, var(--white-color) 65%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.mobile-link:hover {
+    background-color: $primaryColor;
+    opacity: 0.8;
 }
-
-.header__navbar.expanded .header__icon,
-.header__menuSearch {
-    position: absolute;
-}*/

@@ -8,6 +8,20 @@ const app = new App();
 const images = new Images();
 const movies = new Movies();
 
+const renderProductItem = (sectionType) => {
+    const result = movies.result[sectionType];
+    let props = {
+        url: images.secure_url,
+        size: images.poster_sizes,
+        result: result
+
+    }
+    app.renderItem(props);
+
+}
+
+
+
 const renderPopularMoviesSection = async(sectionType) => {
     const popular = movies.result[sectionType];
     let props = {
@@ -38,6 +52,7 @@ const renderApp = async() => {
         page: "main"
     }
     app.renderMoviesList(popularMoviesProps);
+    console.log(popularMoviesResult);
 
     const highestMoviesResult = await movies.getListMovies("top_rated");
     const highestMoviesProps = {
@@ -69,6 +84,14 @@ const renderApp = async() => {
     }
     app.renderMoviesList(upcomingMoviesProps);
 
+
+
+    document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", () => renderProductItem("popular")));
+    document.querySelectorAll("[data-selector='home-movies-link']").forEach(link => link.addEventListener("click", renderApp));
+    document.querySelectorAll("[data-selector='upcoming-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("upcoming")));
+    document.querySelectorAll("[data-selector='nowPlaying-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("now_playing")));
+    document.querySelectorAll("[data-selector='popular-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("popular")));
+    document.querySelectorAll("[data-selector='highest-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("top_rated")));
     document.querySelector("[data-selector='upcoming-movies-button']").addEventListener("click", () => renderPopularMoviesSection("upcoming"));
     document.querySelector("[data-selector='nowPlaying-movies-button']").addEventListener("click", () => renderPopularMoviesSection("now_playing"));
     document.querySelector("[data-selector='popular-movies-button']").addEventListener("click", () => renderPopularMoviesSection("popular"));
