@@ -3,20 +3,27 @@ import "regenerator-runtime/runtime";
 import App from "./view/app";
 import Movies from "./model/movies";
 import Images from "./model/images";
+import MoviesDetails from "./model/moviesDetails";
 
 const app = new App();
 const images = new Images();
 const movies = new Movies();
+const moviesDetails = new MoviesDetails();
 
-const renderProductItem = (sectionType) => {
-    const result = movies.result[sectionType];
+const renderMoviesItem = async(e) => {
+
+    const itemId = e.target.parentElement.parentElement.dataset.id;
+    console.log(itemId);
+
+    await moviesDetails.getMoviesDetails(itemId);
+
+
     let props = {
+        result: moviesDetails.result,
         url: images.secure_url,
-        size: images.poster_sizes,
-        result: result
-
+        size: images.poster_sizes
     }
-    app.renderItem(props);
+    app.renderMoviesItem(props);
 
 }
 
@@ -86,7 +93,7 @@ const renderApp = async() => {
 
 
 
-    document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", () => renderProductItem("popular")));
+    const mov = document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
     document.querySelectorAll("[data-selector='home-movies-link']").forEach(link => link.addEventListener("click", renderApp));
     document.querySelectorAll("[data-selector='upcoming-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("upcoming")));
     document.querySelectorAll("[data-selector='nowPlaying-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("now_playing")));

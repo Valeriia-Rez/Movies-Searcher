@@ -1,7 +1,7 @@
 import Header from "../components/headerComponent";
 import { renderFooter } from "../components/footerComponent";
 import { renderMovies } from "../components/moviesList";
-import { renderMoviesItem } from "../components/moviesItem";
+
 
 const header = new Header();
 
@@ -58,8 +58,16 @@ export default class App {
         mainContent.innerHTML = section;
         this.renderMoviesList(props);
     }
-    renderItem(props) {
 
-        renderMoviesItem(props);
+    renderMoviesItem(props) {
+        const { result, url, size } = props;
+        const mainContent = document.querySelector("[data-selector='main-content']");
+        const section = `
+                    <div class="py-5 section">
+                        <div>
+                            <img src="${url}${size}/${result.poster_path}" alt="${result.title}">
+                        </div>
+                    </div>`;
+        mainContent.innerHTML = section;
     }
 }
