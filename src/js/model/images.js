@@ -15,7 +15,7 @@ export default class Images {
             this.result = res.data.images;
 
             this.secure_url = this.result.secure_base_url;
-            this.poster_sizes = this.result.poster_sizes[2];
+            this.poster_sizes = this.result.poster_sizes;
         } catch (error) {
             alert("error");
         }

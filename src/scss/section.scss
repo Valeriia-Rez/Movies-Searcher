@@ -9,9 +9,25 @@
         }
     }
     &__title {
+        cursor: pointer;
         &:hover {
             opacity: 0.8;
         }
+    }
+    &__details {
+        height: 440px;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    &__detailsTitle {
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+    &__description {
+        color: $darkGray;
+        line-height: 35px;
+        letter-spacing: 1px;
     }
     a {
         color: $primaryColor;

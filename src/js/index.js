@@ -11,29 +11,23 @@ const movies = new Movies();
 const moviesDetails = new MoviesDetails();
 
 const renderMoviesItem = async(e) => {
-
     const itemId = e.target.parentElement.parentElement.dataset.id;
-    console.log(itemId);
 
     await moviesDetails.getMoviesDetails(itemId);
-
-
     let props = {
         result: moviesDetails.result,
         url: images.secure_url,
-        size: images.poster_sizes
+        size: images.poster_sizes[3]
     }
     app.renderMoviesItem(props);
 
 }
 
-
-
 const renderPopularMoviesSection = async(sectionType) => {
     const popular = movies.result[sectionType];
     let props = {
         url: images.secure_url,
-        size: images.poster_sizes,
+        size: images.poster_sizes[2],
         selector: sectionType,
         page: "section"
     }
@@ -54,7 +48,7 @@ const renderApp = async() => {
     const popularMoviesProps = {
         result: popularMoviesResult,
         url: images.secure_url,
-        size: images.poster_sizes,
+        size: images.poster_sizes[2],
         selector: "popular",
         page: "main"
     }
@@ -65,7 +59,7 @@ const renderApp = async() => {
     const highestMoviesProps = {
         result: highestMoviesResult,
         url: images.secure_url,
-        size: images.poster_sizes,
+        size: images.poster_sizes[2],
         selector: "top-rated",
         page: "main"
     }
@@ -75,7 +69,7 @@ const renderApp = async() => {
     const nowPlayingMoviesProps = {
         result: nowPlayingMoviesResult,
         url: images.secure_url,
-        size: images.poster_sizes,
+        size: images.poster_sizes[2],
         selector: "now_playing",
         page: "main"
     }
@@ -85,7 +79,7 @@ const renderApp = async() => {
     const upcomingMoviesProps = {
         result: upcomingMoviesResult,
         url: images.secure_url,
-        size: images.poster_sizes,
+        size: images.poster_sizes[2],
         selector: "upcoming",
         page: "main"
     }
