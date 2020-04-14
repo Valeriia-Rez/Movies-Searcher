@@ -26,8 +26,12 @@
     }
     &__description {
         color: $darkGray;
-        line-height: 35px;
+        font-size: 17px;
         letter-spacing: 1px;
+        @media screen and(min-width: 992px) {
+            line-height: 35px;
+            font-size: 20px;
+        }
     }
     a {
         color: $primaryColor;

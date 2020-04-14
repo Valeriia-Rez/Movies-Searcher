@@ -39,6 +39,7 @@ const renderPopularMoviesSection = async(sectionType) => {
         props = {...props, result: popularMoviesResult };
         app.renderSection(props);
     }
+    document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
 }
 
 const renderApp = async() => {
@@ -85,9 +86,7 @@ const renderApp = async() => {
     }
     app.renderMoviesList(upcomingMoviesProps);
 
-
-
-    const mov = document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
+    document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
     document.querySelectorAll("[data-selector='home-movies-link']").forEach(link => link.addEventListener("click", renderApp));
     document.querySelectorAll("[data-selector='upcoming-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("upcoming")));
     document.querySelectorAll("[data-selector='nowPlaying-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("now_playing")));
