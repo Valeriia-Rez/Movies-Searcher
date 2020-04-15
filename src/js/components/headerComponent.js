@@ -56,7 +56,12 @@ export default class Header {
                             <input type="search" class="d-none d-lg-block header__searchField px-1" placeholder="search" data-selector="header-searchField">
                             <button class="btn text-white header__icon" type="button" data-selector="search-icon"><i class="fas fa-search"></i></button>
                         </div>
-                        <div class="header__icon text-white"><i class="fas fa-heart icon"></i></div>
+                      
+                            <div class="header__icon text-white" data-selector="header-icon" >
+                                <i class="fas fa-heart icon" data-selector="header-icon"></i>
+                            </div>
+                           
+                        </div>
                   </div>
                
                 <div class="header__mobile d-none d-md-none" data-selector="mobile-menu">

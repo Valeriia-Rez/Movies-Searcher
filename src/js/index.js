@@ -18,15 +18,18 @@ const controlLike = (e) => {
     if (!likes.isLiked(itemId)) {
         const newLike = likes.addLike(
             itemId,
-            moviesDetails.result.title,
-            moviesDetails.result.release_date,
-            moviesDetails.result.vote_average
+            moviesDetails.result.title
         );
-        console.log(likes);
+        console.log(newLike)
+        app.toggleBtn(true);
+
+
     } else {
         likes.deleteLike(itemId);
-        console.log(likes)
+        app.toggleBtn(false);
     }
+
+
 }
 
 const renderMoviesItem = async(e) => {
@@ -36,7 +39,8 @@ const renderMoviesItem = async(e) => {
     let props = {
         result: moviesDetails.result,
         url: images.secure_url,
-        size: images.poster_sizes[3]
+        size: images.poster_sizes[3],
+        isLiked: likes.isLiked(itemId)
     }
     app.renderMoviesItem(props);
 

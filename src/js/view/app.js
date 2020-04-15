@@ -1,9 +1,12 @@
 import Header from "../components/headerComponent";
 import { renderFooter } from "../components/footerComponent";
 import { renderMovies } from "../components/moviesList";
+import ViewLikes from "./likesView";
+
 
 
 const header = new Header();
+const viewLikes = new ViewLikes();
 
 export default class App {
 
@@ -61,7 +64,7 @@ export default class App {
 
 
     renderMoviesItem(props) {
-        const { result, url, size } = props;
+        const { result, url, size, isLiked } = props;
         const mainContent = document.querySelector("[data-selector='main-content']");
         const section = `   <div class="row section">
                                 <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center"><h3>${result.title}</h3>
@@ -79,10 +82,17 @@ export default class App {
                                     <div><h6><strong>Languages:</strong> ${result.spoken_languages.map(item => item.name).join(", ")}</h6></div>
                                     <div class="d-flex justify-content-between">
                                         <div><h3>Vote average : ${result.vote_average}</h3></div>
-                                        <div class="section__icon" data-id="${result.id}" data-selector="movies-icon"><i class="far fa-heart"></i></div>
+                                        <div class="section__icon" data-id="${result.id}" data-selector="movies-icon"><i class="${isLiked ? "fas fa-heart" : "far fa-heart"}"></i></div>
                                     </div>
                                 </div>
                             </div>`;
         mainContent.innerHTML = section;
     }
+
+    toggleBtn(isLiked) {
+        viewLikes.toggleLikeBtn(isLiked);
+    }
+
+
+
 }
