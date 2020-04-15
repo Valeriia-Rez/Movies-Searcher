@@ -59,25 +59,27 @@ export default class App {
         this.renderMoviesList(props);
     }
 
+
     renderMoviesItem(props) {
         const { result, url, size } = props;
         const mainContent = document.querySelector("[data-selector='main-content']");
-        const section = `
-                    <div class="row py-4 py-lg-5 section justify-content-between">
-                    <div class="col-12 section__title section__detailsTitle text-left pb-3"><h3>${result.title}</h3></div>                         
-                        <div class="d-flex flex-column col-12 col-md-6 col-lg-4">
-                            <div><img src="${url}${size}/${result.poster_path}" class="section__img section__details w-100" alt="${result.title}"></div>
-                        </div> 
-                        <div class="col-12 col-md-6 col-lg-7 section__description pl-md-4 pt-3">
-                            <div><h6><strong>Release date:</strong> ${result.release_date}</h6></div>
-                            <div class="pb-2"><h6><strong>${result.genres[1].name}, ${result.genres[0].name}</strong></h6></div>
-                            <div class="text-justify"><p>${result.overview}</p></div>
-                            <div><h6><strong>Country:</strong> ${result.production_countries[0].name}</h6></div>
-                            <div><h6><strong>Language:</strong> ${result.spoken_languages[0].name}</h6></div>
-                            <div><h3>Vote average : ${result.vote_average}</h3></div>
-                        </div>
-                       
-                    </div>`;
+        const section = `   <div class="row section">
+                                <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center"><h3>${result.title}</h3>
+                                </div>                         
+                            </div>
+                            <div class="row py-3 section justify-content-between">
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div><img src="${url}${size}/${result.poster_path}" class="section__img section__details w-100" alt="${result.title}"></div>
+                                </div> 
+                                <div class="col-12 col-md-6 col-lg-7 section__description pl-md-4 pt-3">
+                                    <div><h6><strong>Release date:</strong> ${result.release_date}</h6></div>
+                                    <div class="pb-2"><h6><strong>${result.genres.map(item => item.name)}</strong></h6></div>
+                                    <div class="text-justify"><p>${result.overview}</p></div>
+                                    <div><h6><strong>Country:</strong> ${result.production_countries.map(item => item.name)}</h6></div>
+                                    <div><h6><strong>Languages:</strong> ${result.spoken_languages.map(item => item.name)}</h6></div>
+                                    <div><h3>Vote average : ${result.vote_average}</h3></div>
+                                </div>
+                            </div>`;
         mainContent.innerHTML = section;
     }
 }
