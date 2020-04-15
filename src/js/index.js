@@ -4,11 +4,30 @@ import App from "./view/app";
 import Movies from "./model/movies";
 import Images from "./model/images";
 import MoviesDetails from "./model/moviesDetails";
+import Likes from "./model/likes";
 
 const app = new App();
 const images = new Images();
 const movies = new Movies();
 const moviesDetails = new MoviesDetails();
+const likes = new Likes();
+
+const controlLike = (e) => {
+    const itemId = e.target.parentElement.dataset.id;
+
+    if (!likes.isLiked(itemId)) {
+        const newLike = likes.addLike(
+            itemId,
+            moviesDetails.result.title,
+            moviesDetails.result.release_date,
+            moviesDetails.result.vote_average
+        );
+        console.log(likes);
+    } else {
+        likes.deleteLike(itemId);
+        console.log(likes)
+    }
+}
 
 const renderMoviesItem = async(e) => {
     const itemId = e.target.parentElement.parentElement.dataset.id;
@@ -20,6 +39,9 @@ const renderMoviesItem = async(e) => {
         size: images.poster_sizes[3]
     }
     app.renderMoviesItem(props);
+
+    document.querySelector("[data-selector='movies-icon']").addEventListener("click", controlLike);
+
 
 }
 
@@ -85,6 +107,7 @@ const renderApp = async() => {
         page: "main"
     }
     app.renderMoviesList(upcomingMoviesProps);
+
 
     document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
     document.querySelectorAll("[data-selector='home-movies-link']").forEach(link => link.addEventListener("click", renderApp));

@@ -73,11 +73,14 @@ export default class App {
                                 </div> 
                                 <div class="col-12 col-md-6 col-lg-7 section__description pl-md-4 pt-3">
                                     <div><h6><strong>Release date:</strong> ${result.release_date}</h6></div>
-                                    <div class="pb-2"><h6><strong>${result.genres.map(item => item.name)}</strong></h6></div>
+                                    <div class="pb-2"><h6><strong>${result.genres.map(item => item.name).join(", ")}</strong></h6></div>
                                     <div class="text-justify"><p>${result.overview}</p></div>
-                                    <div><h6><strong>Country:</strong> ${result.production_countries.map(item => item.name)}</h6></div>
-                                    <div><h6><strong>Languages:</strong> ${result.spoken_languages.map(item => item.name)}</h6></div>
-                                    <div><h3>Vote average : ${result.vote_average}</h3></div>
+                                    <div><h6><strong>Countries:</strong> ${result.production_countries.map(item => item.name).join(", ")}</h6></div>
+                                    <div><h6><strong>Languages:</strong> ${result.spoken_languages.map(item => item.name).join(", ")}</h6></div>
+                                    <div class="d-flex justify-content-between">
+                                        <div><h3>Vote average : ${result.vote_average}</h3></div>
+                                        <div class="section__icon" data-id="${result.id}" data-selector="movies-icon"><i class="far fa-heart"></i></div>
+                                    </div>
                                 </div>
                             </div>`;
         mainContent.innerHTML = section;

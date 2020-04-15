@@ -33,6 +33,13 @@
             font-size: 20px;
         }
     }
+    &__icon {
+        font-size: 35px;
+        cursor: pointer;
+        &:hover {
+            color: $primaryColor;
+        }
+    }
     a {
         color: $primaryColor;
     }
