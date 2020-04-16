@@ -8,9 +8,6 @@ export default class ViewLikes {
     };
 
 
-
-
-
     /*deleteLike(id){
         const el = document.querySelector("")
     }*/

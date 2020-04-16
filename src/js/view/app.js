@@ -93,6 +93,18 @@ export default class App {
         viewLikes.toggleLikeBtn(isLiked);
     }
 
+    renderLikeView(like) {
 
+        const mainContent = document.querySelector("[data-selector='main-content']");
+        const section = `
+        <div class="section">
+            <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center"><h3>${like.title}</h3>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div><img src="${like.img}" class="section__img section__details w-100" alt="${like.title}"></div>
+        </div> `;
+        mainContent.innerHTML = section;
+
+    }
 
 }

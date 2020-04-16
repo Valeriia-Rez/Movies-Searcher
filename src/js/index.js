@@ -12,21 +12,34 @@ const movies = new Movies();
 const moviesDetails = new MoviesDetails();
 const likes = new Likes();
 
+
+
 const controlLike = (e) => {
     const itemId = e.target.parentElement.dataset.id;
-
+    const img = `${images.secure_url}${images.poster_sizes[3]}/${moviesDetails.result.poster_path}`;
     if (!likes.isLiked(itemId)) {
+
         const newLike = likes.addLike(
             itemId,
-            moviesDetails.result.title
+            moviesDetails.result.title,
+            img
         );
-        console.log(newLike)
+
+
+        console.log(likes)
         app.toggleBtn(true);
 
 
+        /*document.querySelector("[data-selector='header-icon']").addEventListener("click", () => app.renderLikeView(newLike));*/
+        console.log(likes)
+
+
+
+
     } else {
-        likes.deleteLike(itemId);
+
         app.toggleBtn(false);
+
     }
 
 
@@ -126,6 +139,5 @@ const renderApp = async() => {
     document.querySelector("[data-selector='mobile-open']").addEventListener("click", app.openMobileMenu);
     document.querySelector("[data-selector='mobile-close']").addEventListener("click", app.closeMobileMenu);
 }
-
 
 window.addEventListener("DOMContentLoaded", renderApp);
