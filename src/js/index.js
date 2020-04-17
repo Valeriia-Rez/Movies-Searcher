@@ -19,22 +19,16 @@ const controlLike = (e) => {
     const img = `${images.secure_url}${images.poster_sizes[3]}/${moviesDetails.result.poster_path}`;
     if (!likes.isLiked(itemId)) {
 
-        const newLike = likes.addLike(
+        likes.addLike(
             itemId,
             moviesDetails.result.title,
             img
         );
 
-
-        console.log(likes)
+        console.log(likes.likes, "lik")
         app.toggleBtn(true);
 
-
-        /*document.querySelector("[data-selector='header-icon']").addEventListener("click", () => app.renderLikeView(newLike));*/
-        console.log(likes)
-
-
-
+        document.querySelector("[data-selector='header-icon']").addEventListener("click", () => app.renderLikeView(likes.likes));
 
     } else {
 

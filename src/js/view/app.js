@@ -2,6 +2,7 @@ import Header from "../components/headerComponent";
 import { renderFooter } from "../components/footerComponent";
 import { renderMovies } from "../components/moviesList";
 import ViewLikes from "./likesView";
+import Likes from "../model/likes";
 
 
 
@@ -93,18 +94,26 @@ export default class App {
         viewLikes.toggleLikeBtn(isLiked);
     }
 
-    renderLikeView(like) {
-
+    renderLikeView(arr) {
         const mainContent = document.querySelector("[data-selector='main-content']");
-        const section = `
-        <div class="section">
-            <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center"><h3>${like.title}</h3>
+
+        arr.map(item => {
+            const section = `
+    <div data-selector="${item.id}">
+        <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center">
+            <h3>${item.title}</h3>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
-            <div><img src="${like.img}" class="section__img section__details w-100" alt="${like.title}"></div>
-        </div> `;
-        mainContent.innerHTML = section;
+            <div><img src="${item.img}" class="section__img section__details w-100" alt="${item.title}">
+            </div>
+        </div>
+    </div> `;
+            mainContent.innerHTML = section;
+        })
+
+
+
+
 
     }
-
 }
