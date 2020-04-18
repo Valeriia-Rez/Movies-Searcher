@@ -56,6 +56,16 @@ export default class App {
         header.closeMobileHandler();
     }
 
+    setActiveStateOnNavigation(e) {
+        document.querySelectorAll("[data-selector='mobile-link']").forEach(item => {
+            if (item.classList.contains("active")) {
+                item.classList.remove("active");
+            }
+        })
+        const current = e.target.parentElement;
+        current.classList.add("active");
+    }
+
     renderSection(props) {
         const mainContent = document.querySelector("[data-selector='main-content']");
         const section = `<div class="d-flex flex-wrap py-5 section" data-selector="${props.selector}"></div>`;

@@ -25,6 +25,8 @@ export default class Header {
     }
 
 
+
+
     renderHeader() {
         return `
         <header class="header">
@@ -44,10 +46,10 @@ export default class Header {
                         <nav class="header__nav">
                             <ul class="list-group list-group-horizontal header__menu">
                                 <li><a href="#" class="header__link px-2 px-lg-3" data-selector="home-movies-link">Home</a></li>
-                                <li><a href="#" class="header__link pr-2 pr-lg-3" data-selector="highest-movies-link">Highest Rated</a></li>
-                                <li><a href="#" class="header__link pr-2 pr-lg-3" data-selector="popular-movies-link">Most Popular</a></li>
-                                <li><a href="#" class="header__link pr-2 pr-lg-3" data-selector="nowPlaying-movies-link">Now playing</a></li>
-                                <li><a href="#" class="header__link" data-selector="upcoming-movies-link">Upcoming</a></li>
+                                <li><a href="#top_rated" class="header__link pr-2 pr-lg-3" data-selector="highest-movies-link">Highest Rated</a></li>
+                                <li><a href="#popular" class="header__link pr-2 pr-lg-3" data-selector="popular-movies-link">Most Popular</a></li>
+                                <li><a href="#now_playing" class="header__link pr-2 pr-lg-3" data-selector="nowPlaying-movies-link">Now playing</a></li>
+                                <li><a href="#upcoming" class="header__link" data-selector="upcoming-movies-link">Upcoming</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -66,12 +68,12 @@ export default class Header {
                
                 <div class="header__mobile d-none d-md-none" data-selector="mobile-menu">
                 <nav>
-                    <ul class="header__menu">
-                        <li class="mobile-link px-3"><a href="#" class="header__link"  data-selector="home-movies-link">Home</a></li>
-                        <li class="mobile-link px-3"><a href="#" class="header__link"  data-selector="highest-movies-link">Highest Rated</a></li>
-                        <li class="mobile-link px-3"><a href="#" class="header__link" data-selector="popular-movies-link">Most Popular</a></li>
-                        <li class="mobile-link px-3"><a href="#" class="header__link" data-selector="nowPlaying-movies-link">Now playing</a></li>
-                        <li class="mobile-link px-3"><a href="#" class="header__link" data-selector="upcoming-movies-link">Comming Soon</a></li>
+                    <ul class="header__menu" data-selector="mobile-menu">
+                        <li class="mobile-link px-3 active" data-selector="mobile-link"><a href="#" class="header__link"  data-selector="home-movies-link">Home</a></li>
+                        <li class="mobile-link px-3" data-selector="mobile-link"><a href="#top_rated" class="header__link"  data-selector="highest-movies-link">Highest Rated</a></li>
+                        <li class="mobile-link px-3" data-selector="mobile-link"><a href="#popular" class="header__link" data-selector="popular-movies-link">Most Popular</a></li>
+                        <li class="mobile-link px-3" data-selector="mobile-link"><a href="#now_playing" class="header__link" data-selector="nowPlaying-movies-link">Now playing</a></li>
+                        <li class="mobile-link px-3" data-selector="mobile-link"><a href="#upcoming" class="header__link" data-selector="upcoming-movies-link">Comming Soon</a></li>
                     </ul>
                 </nav>
             </div>

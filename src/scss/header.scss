@@ -38,6 +38,14 @@
     }
 }
 
+.mobile-link {
+    &.active {
+        .header__link {
+            color: $tertiaryColor;
+        }
+    }
+}
+
 .gamburger {
     border-bottom: 2px solid $whiteColor;
     width: 20px;
@@ -45,7 +53,7 @@
     height: 7px;
 }
 
-.mobile-link:hover {
+.active {
     background-color: $primaryColor;
     opacity: 0.8;
 }

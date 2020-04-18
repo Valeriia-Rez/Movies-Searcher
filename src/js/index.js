@@ -40,14 +40,21 @@ const controlLike = (e) => {
 }
 
 const renderMoviesItem = async(e) => {
-    const itemId = e.target.parentElement.parentElement.dataset.id;
 
-    await moviesDetails.getMoviesDetails(itemId);
+
+    if (e) {
+        const itemId = e.target.parentElement.parentElement.dataset.id;
+        location.hash = itemId;
+    }
+
+    const id = location.hash.replace("#", "");
+    await moviesDetails.getMoviesDetails(id);
+
     let props = {
         result: moviesDetails.result,
         url: images.secure_url,
         size: images.poster_sizes[3],
-        isLiked: likes.isLiked(itemId)
+        isLiked: likes.isLiked(id)
     }
     app.renderMoviesItem(props);
 
@@ -58,17 +65,20 @@ const renderMoviesItem = async(e) => {
 
 const renderPopularMoviesSection = async(sectionType) => {
     const popular = movies.result[sectionType];
+    location.hash = sectionType;
+    console.log(location.hash, "win");
+    const sectionTypeFromURL = location.hash.replace("#", "");
     let props = {
         url: images.secure_url,
         size: images.poster_sizes[2],
-        selector: sectionType,
+        selector: sectionTypeFromURL,
         page: "section"
     }
-    if (popular.length > 0) {
+    if (popular) {
         props = {...props, result: popular };
         app.renderSection(props);
     } else {
-        const popularMoviesResult = await movies.getListMovies(sectionType);
+        const popularMoviesResult = await movies.getListMovies(sectionTypeFromURL);
         props = {...props, result: popularMoviesResult };
         app.renderSection(props);
     }
@@ -76,56 +86,73 @@ const renderPopularMoviesSection = async(sectionType) => {
 }
 
 const renderApp = async() => {
+    const main = document.querySelector("[data-selector='app']");
+    main.innerHTML = "";
     app.render();
-    const popularMoviesResult = await movies.getListMovies("popular");
-    await images.getImages();
-    const popularMoviesProps = {
-        result: popularMoviesResult,
-        url: images.secure_url,
-        size: images.poster_sizes[2],
-        selector: "popular",
-        page: "main"
-    }
-    app.renderMoviesList(popularMoviesProps);
-    console.log(popularMoviesResult);
 
-    const highestMoviesResult = await movies.getListMovies("top_rated");
-    const highestMoviesProps = {
-        result: highestMoviesResult,
-        url: images.secure_url,
-        size: images.poster_sizes[2],
-        selector: "top-rated",
-        page: "main"
-    }
-    app.renderMoviesList(highestMoviesProps);
+    const page = location.hash;
+    console.log(page, "page")
+    if (!page) {
+        console.log("hear", page);
+        const popularMoviesResult = await movies.getListMovies("popular");
+        await images.getImages();
+        const popularMoviesProps = {
+            result: popularMoviesResult,
+            url: images.secure_url,
+            size: images.poster_sizes[2],
+            selector: "popular",
+            page: "main"
+        }
+        app.renderMoviesList(popularMoviesProps);
+        console.log(popularMoviesResult);
 
-    const nowPlayingMoviesResult = await movies.getListMovies("now_playing");
-    const nowPlayingMoviesProps = {
-        result: nowPlayingMoviesResult,
-        url: images.secure_url,
-        size: images.poster_sizes[2],
-        selector: "now_playing",
-        page: "main"
-    }
-    app.renderMoviesList(nowPlayingMoviesProps);
+        const highestMoviesResult = await movies.getListMovies("top_rated");
+        const highestMoviesProps = {
+            result: highestMoviesResult,
+            url: images.secure_url,
+            size: images.poster_sizes[2],
+            selector: "top-rated",
+            page: "main"
+        }
+        app.renderMoviesList(highestMoviesProps);
 
-    const upcomingMoviesResult = await movies.getListMovies("upcoming");
-    const upcomingMoviesProps = {
-        result: upcomingMoviesResult,
-        url: images.secure_url,
-        size: images.poster_sizes[2],
-        selector: "upcoming",
-        page: "main"
-    }
-    app.renderMoviesList(upcomingMoviesProps);
+        const nowPlayingMoviesResult = await movies.getListMovies("now_playing");
+        const nowPlayingMoviesProps = {
+            result: nowPlayingMoviesResult,
+            url: images.secure_url,
+            size: images.poster_sizes[2],
+            selector: "now_playing",
+            page: "main"
+        }
+        app.renderMoviesList(nowPlayingMoviesProps);
 
+        const upcomingMoviesResult = await movies.getListMovies("upcoming");
+        const upcomingMoviesProps = {
+            result: upcomingMoviesResult,
+            url: images.secure_url,
+            size: images.poster_sizes[2],
+            selector: "upcoming",
+            page: "main"
+        }
+        app.renderMoviesList(upcomingMoviesProps);
+    } else if (["#popular", "#top_rated", "#now_playing", "#upcoming"].includes(page)) {
+        await images.getImages();
+        renderPopularMoviesSection(page.replace("#", ""));
+    } else {
+        await images.getImages();
+        renderMoviesItem();
+    }
+    console.log("render")
+
+
+    document.querySelectorAll("[data-selector='mobile-link']").forEach(item => item.addEventListener("click", app.setActiveStateOnNavigation));
 
     document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
-    document.querySelectorAll("[data-selector='home-movies-link']").forEach(link => link.addEventListener("click", renderApp));
-    document.querySelectorAll("[data-selector='upcoming-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("upcoming")));
-    document.querySelectorAll("[data-selector='nowPlaying-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("now_playing")));
-    document.querySelectorAll("[data-selector='popular-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("popular")));
-    document.querySelectorAll("[data-selector='highest-movies-link']").forEach(link => link.addEventListener("click", () => renderPopularMoviesSection("top_rated")));
+    document.querySelector("[data-selector='home-movies-link']").addEventListener("click", renderApp);
+    document.querySelector("[data-selector='upcoming-movies-link']").addEventListener("click", () => renderPopularMoviesSection("upcoming"));
+    document.querySelector("[data-selector='nowPlaying-movies-link']").addEventListener("click", () => renderPopularMoviesSection("now_playing"));
+    document.querySelector("[data-selector='popular-movies-link']").addEventListener("click", () => renderPopularMoviesSection("popular"));
+    document.querySelector("[data-selector='highest-movies-link']").addEventListener("click", () => renderPopularMoviesSection("top_rated"));
     document.querySelector("[data-selector='upcoming-movies-button']").addEventListener("click", () => renderPopularMoviesSection("upcoming"));
     document.querySelector("[data-selector='nowPlaying-movies-button']").addEventListener("click", () => renderPopularMoviesSection("now_playing"));
     document.querySelector("[data-selector='popular-movies-button']").addEventListener("click", () => renderPopularMoviesSection("popular"));
@@ -134,4 +161,6 @@ const renderApp = async() => {
     document.querySelector("[data-selector='mobile-close']").addEventListener("click", app.closeMobileMenu);
 }
 
+
 window.addEventListener("DOMContentLoaded", renderApp);
+/*window.addEventListener("hashchange", renderApp);*/
