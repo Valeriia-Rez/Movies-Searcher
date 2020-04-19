@@ -10,30 +10,36 @@ export default class App {
         renderMovies(props);
     }
 
+    renderHomePageContent() {
+        return `
+<div class="d-flex justify-content-between py-4 px-3">
+<h2>Popular Movies</h2>
+<button class="btn btn-outline-secondary align-self-center" data-selector="popular-movies-button">View all movies</a>
+</div>
+<section class="section d-flex flex-wrap text-center" data-selector="popular"></section>
+<div class="d-flex justify-content-between py-4 px-3">
+<h2>Highest Rated Movies</h2>
+<button class="btn btn-outline-secondary align-self-center" data-selector="topRated-movies-button">View all movies</button>
+</div>
+<section class="section d-flex flex-wrap text-center" data-selector="top-rated"></section>
+<div class="d-flex justify-content-between py-4 px-3">
+<h2>Now playing</h2>
+<button class="btn btn-outline-secondary align-self-center" data-selector="nowPlaying-movies-button">View all movies</button>
+</div>
+<section class="section d-flex flex-wrap text-center" data-selector="now_playing"></section>
+<div class="d-flex justify-content-between py-4 px-3">
+<h2>Upcoming</h2>
+<button class="btn btn-outline-secondary align-self-center" data-selector="upcoming-movies-button">View all movies</button>
+</div>
+<section class="section d-flex flex-wrap text-center" data-selector="upcoming"></section>
+`;
+    }
+
     render() {
         let html = `
             ${header.renderHeader()}
             <div class="container pb-4" data-selector="main-content">
-                <div class="d-flex justify-content-between py-4 px-3">
-                    <h2>Popular Movies</h2>
-                    <button class="btn btn-outline-secondary align-self-center" data-selector="popular-movies-button">View all movies</a>
-                </div>
-                <section class="section d-flex flex-wrap text-center" data-selector="popular"></section>
-                <div class="d-flex justify-content-between py-4 px-3">
-                    <h2 class="">Highest Rated Movies</h2>
-                    <button class="btn btn-outline-secondary align-self-center" data-selector="topRated-movies-button">View all movies</button>
-                </div>
-                <section class="section d-flex flex-wrap text-center" data-selector="top-rated"></section>
-                <div class="d-flex justify-content-between py-4 px-3">
-                    <h2>Now playing</h2>
-                    <button class="btn btn-outline-secondary align-self-center" data-selector="nowPlaying-movies-button">View all movies</button>
-                </div>
-                <section class="section d-flex flex-wrap text-center" data-selector="now_playing"></section>
-                <div class="d-flex justify-content-between py-4 px-3">
-                    <h2>Upcoming</h2>
-                    <button class="btn btn-outline-secondary align-self-center" data-selector="upcoming-movies-button">View all movies</button>
-                </div>
-                <section class="section d-flex flex-wrap text-center" data-selector="upcoming"></section>
+               
             </div>
             ${renderFooter()}
         `;

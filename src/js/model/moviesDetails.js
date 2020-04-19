@@ -10,7 +10,8 @@ export default class MoviesDetails {
         try {
             const res = await axios(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.key}&language=en-US`);
             this.result = res.data;
-            console.log(this.result);
+            return this.result;
+
         } catch (error) {
             alert("error");
         }

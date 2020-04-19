@@ -3,18 +3,20 @@ import axios from "axios";
 export default class Images {
     constructor() {
         this.result = null;
-        this.secure_url = null;
-        this.poster_sizes = null;
         this.key = "cf30bcc05df32683582a915d4d1985d9";
-
     }
 
     async getImages() {
+        console.log("jj")
         try {
             const res = await axios(`https://api.themoviedb.org/3/configuration?api_key=${this.key}`);
-            this.result = res.data.images;
-            this.secure_url = this.result.secure_base_url;
-            this.poster_sizes = this.result.poster_sizes;
+            console.log(res);
+            this.result = {
+                result: res.data.images,
+                secure_url: res.data.images.secure_base_url,
+                poster_sizes: res.data.images.poster_sizes
+            };
+            return this.result;
         } catch (error) {
             alert("error");
         }

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default class Movies {
     constructor() {
-        this.result = {};
+        this.result = null;
         this.key = "cf30bcc05df32683582a915d4d1985d9";
 
     }

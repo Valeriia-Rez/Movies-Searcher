@@ -7,18 +7,18 @@ import MoviesDetails from "./model/moviesDetails";
 import Likes from "./model/likes";
 
 const app = new App();
-const images = new Images();
+const imagesModel = new Images();
 const movies = new Movies();
-const moviesDetails = new MoviesDetails();
+const moviesDetailsModel = new MoviesDetails();
 const likes = new Likes();
 
 const controlLike = (id) => {
 
-    const img = `${images.secure_url}${images.poster_sizes[3]}/${moviesDetails.result.poster_path}`;
+    const img = `${imagesModel.result.secure_url}${imagesModel.result.poster_sizes[3]}/${moviesDetailsModel.result.poster_path}`;
     if (!likes.isLiked(id)) {
         likes.addLike(
             id,
-            moviesDetails.result.title,
+            moviesDetailsModel.result.title,
             img
         );
         app.toggleLikeBtn(true);
@@ -31,17 +31,17 @@ const controlLike = (id) => {
 }
 
 const renderMoviesItem = async(e) => {
-
     if (e) {
         const itemId = e.target.parentElement.parentElement.dataset.id;
         location.hash = itemId;
     }
     const id = location.hash.replace("#", "");
-    await moviesDetails.getMoviesDetails(id);
+    console.log(id, "id")
+    const moviesDetails = await moviesDetailsModel.getMoviesDetails(id);
     let props = {
-        result: moviesDetails.result,
-        url: images.secure_url,
-        size: images.poster_sizes[3],
+        result: moviesDetails,
+        url: imagesModel.result.secure_url,
+        size: imagesModel.result.poster_sizes[3],
         isLiked: likes.isLiked(id)
     }
     app.renderMoviesItem(props);
@@ -49,7 +49,9 @@ const renderMoviesItem = async(e) => {
 }
 
 const renderPopularMoviesSection = async(sectionType) => {
-    const popular = movies.result[sectionType];
+    const images = await imagesModel.getImages();
+    const popular = movies.result && movies.result[sectionType];
+    console.log(popular, "pop")
     location.hash = sectionType;
     const sectionTypeFromURL = location.hash.replace("#", "");
     let props = {
@@ -58,6 +60,7 @@ const renderPopularMoviesSection = async(sectionType) => {
         selector: sectionTypeFromURL,
         page: "section"
     }
+    console.log(props, "props")
     if (popular) {
         props = {...props, result: popular };
         app.renderSection(props);
@@ -70,58 +73,62 @@ const renderPopularMoviesSection = async(sectionType) => {
 }
 
 const renderApp = async() => {
-    const main = document.querySelector("[data-selector='app']");
-    main.innerHTML = "";
     app.render();
     const page = location.hash;
-    if (!page) {
-        const popularMoviesResult = await movies.getListMovies("popular");
-        await images.getImages();
-        const popularMoviesProps = {
-            result: popularMoviesResult,
-            url: images.secure_url,
-            size: images.poster_sizes[2],
-            selector: "popular",
-            page: "main"
-        }
-        app.renderMoviesList(popularMoviesProps);
-
-        const highestMoviesResult = await movies.getListMovies("top_rated");
-        const highestMoviesProps = {
-            result: highestMoviesResult,
-            url: images.secure_url,
-            size: images.poster_sizes[2],
-            selector: "top-rated",
-            page: "main"
-        }
-        app.renderMoviesList(highestMoviesProps);
-
-        const nowPlayingMoviesResult = await movies.getListMovies("now_playing");
-        const nowPlayingMoviesProps = {
-            result: nowPlayingMoviesResult,
-            url: images.secure_url,
-            size: images.poster_sizes[2],
-            selector: "now_playing",
-            page: "main"
-        }
-        app.renderMoviesList(nowPlayingMoviesProps);
-
-        const upcomingMoviesResult = await movies.getListMovies("upcoming");
-        const upcomingMoviesProps = {
-            result: upcomingMoviesResult,
-            url: images.secure_url,
-            size: images.poster_sizes[2],
-            selector: "upcoming",
-            page: "main"
-        }
-        app.renderMoviesList(upcomingMoviesProps);
-    } else if (["#popular", "#top_rated", "#now_playing", "#upcoming"].includes(page)) {
-        await images.getImages();
-        renderPopularMoviesSection(page.replace("#", ""));
-    } else {
-        await images.getImages();
-        renderMoviesItem();
+    const images = await imagesModel.getImages();
+    if (["#popular", "#top_rated", "#now_playing", "#upcoming"].includes(page)) {
+        return renderPopularMoviesSection(page.replace("#", ""), images);
     }
+    if (page) {
+        return renderMoviesItem();
+    }
+    const main = document.querySelector("[data-selector='main-content']");
+    let popularMoviesResult, highestMoviesResult, nowPlayingMoviesResult, upcomingMoviesResult;
+
+    if (!page) {
+        main.innerHTML = app.renderHomePageContent();
+        popularMoviesResult = await movies.getListMovies("popular");
+        highestMoviesResult = await movies.getListMovies("top_rated");
+        nowPlayingMoviesResult = await movies.getListMovies("now_playing");
+        upcomingMoviesResult = await movies.getListMovies("upcoming");
+    }
+    const popularMoviesProps = {
+        result: popularMoviesResult,
+        url: images.secure_url,
+        size: images.poster_sizes[2],
+        selector: "popular",
+        page: "main"
+    }
+    console.log(popularMoviesProps, "pop")
+    app.renderMoviesList(popularMoviesProps);
+
+    const highestMoviesProps = {
+        result: highestMoviesResult,
+        url: images.secure_url,
+        size: images.poster_sizes[2],
+        selector: "top-rated",
+        page: "main"
+    }
+    app.renderMoviesList(highestMoviesProps);
+
+    const nowPlayingMoviesProps = {
+        result: nowPlayingMoviesResult,
+        url: images.secure_url,
+        size: images.poster_sizes[2],
+        selector: "now_playing",
+        page: "main"
+    }
+    app.renderMoviesList(nowPlayingMoviesProps);
+
+    const upcomingMoviesProps = {
+        result: upcomingMoviesResult,
+        url: images.secure_url,
+        size: images.poster_sizes[2],
+        selector: "upcoming",
+        page: "main"
+    }
+    app.renderMoviesList(upcomingMoviesProps);
+
 
     document.querySelectorAll(".menu").forEach(item => item.addEventListener("click", app.setActiveStateOnDesktopNavigation));
     document.querySelectorAll("[data-selector='mobile-link']").forEach(item => item.addEventListener("click", app.setActiveStateOnMobileNavigation));
@@ -139,5 +146,6 @@ const renderApp = async() => {
     document.querySelector("[data-selector='mobile-close']").addEventListener("click", app.closeMobileMenu);
 }
 
+
 window.addEventListener("DOMContentLoaded", renderApp);
-/*window.addEventListener("hashchange", renderApp);*/
+window.addEventListener("hashchange", renderApp);
