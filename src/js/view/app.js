@@ -1,20 +1,14 @@
 import Header from "../components/headerComponent";
 import { renderFooter } from "../components/footerComponent";
 import { renderMovies } from "../components/moviesList";
-import ViewLikes from "./likesView";
-import Likes from "../model/likes";
-
-
 
 const header = new Header();
-const viewLikes = new ViewLikes();
 
 export default class App {
 
     renderMoviesList(props) {
         renderMovies(props);
     }
-
 
     render() {
         let html = `
@@ -56,7 +50,7 @@ export default class App {
         header.closeMobileHandler();
     }
 
-    setActiveStateOnNavigation(e) {
+    setActiveStateOnMobileNavigation(e) {
         document.querySelectorAll("[data-selector='mobile-link']").forEach(item => {
             if (item.classList.contains("active")) {
                 item.classList.remove("active");
@@ -66,13 +60,22 @@ export default class App {
         current.classList.add("active");
     }
 
+    setActiveStateOnDesktopNavigation(e) {
+        document.querySelectorAll(".menu").forEach(item => {
+            if (item.classList.contains("activeDesktop")) {
+                item.classList.remove("activeDesktop");
+            }
+        });
+        const current = e.target;
+        current.classList.add("activeDesktop");
+    }
+
     renderSection(props) {
         const mainContent = document.querySelector("[data-selector='main-content']");
         const section = `<div class="d-flex flex-wrap py-5 section" data-selector="${props.selector}"></div>`;
         mainContent.innerHTML = section;
         this.renderMoviesList(props);
     }
-
 
     renderMoviesItem(props) {
         const { result, url, size, isLiked } = props;
@@ -91,7 +94,7 @@ export default class App {
                                     <div class="text-justify"><p>${result.overview}</p></div>
                                     <div><h6><strong>Countries:</strong> ${result.production_countries.map(item => item.name).join(", ")}</h6></div>
                                     <div><h6><strong>Languages:</strong> ${result.spoken_languages.map(item => item.name).join(", ")}</h6></div>
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between align-items-center">
                                         <div><h3>Vote average : ${result.vote_average}</h3></div>
                                         <div class="section__icon" data-id="${result.id}" data-selector="movies-icon"><i class="${isLiked ? "fas fa-heart" : "far fa-heart"}"></i></div>
                                     </div>
@@ -100,14 +103,15 @@ export default class App {
         mainContent.innerHTML = section;
     }
 
-    toggleBtn(isLiked) {
-        viewLikes.toggleLikeBtn(isLiked);
+    toggleLikeBtn(isLiked) {
+        const iconString = isLiked ? `<i class="fas fa-heart"></i>` : `<i class="far fa-heart"></i>`;
+        const icon = document.querySelector(".section__icon");
+        icon.innerHTML = iconString;
     }
 
     renderLikeView(arr) {
         const mainContent = document.querySelector("[data-selector='main-content']");
-
-        arr.map(item => {
+        const html = arr.map(item => {
             const section = `
     <div data-selector="${item.id}">
         <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center">
@@ -118,12 +122,9 @@ export default class App {
             </div>
         </div>
     </div> `;
-            mainContent.innerHTML = section;
-        })
+            return section;
+        }).join("");
 
-
-
-
-
+        mainContent.innerHTML = html;
     }
 }
