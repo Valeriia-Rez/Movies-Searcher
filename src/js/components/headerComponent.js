@@ -1,4 +1,7 @@
 export default class Header {
+    constructor() {
+
+    }
 
     openMobileHandler() {
         const openMobileBtn = document.querySelector("[data-selector='mobile-open']");
@@ -21,6 +24,7 @@ export default class Header {
             closeMobileBtn.classList.add("d-none");
         }
     }
+
 
     renderHeader() {
         return `
@@ -48,12 +52,8 @@ export default class Header {
                             </ul>
                         </nav>
                     </div>
-                        <div class="header__search d-flex flex-row align-items-center">
-                            <input type="search" class="d-none d-lg-block header__searchField px-1" placeholder="search" data-selector="header-searchField">
-                            <button class="btn text-white header__icon" type="button" data-selector="search-icon"><i class="fas fa-search"></i></button>
-                        </div>
                         <div class="header__icon text-white" data-selector="header-icon" >
-                                <i class="fas fa-heart icon"></i>
+                            <span class="pr-2" data-selector="likes-length">(0)</span><i class="fas fa-heart icon"></i>
                         </div>
                     </div>
                   </div>

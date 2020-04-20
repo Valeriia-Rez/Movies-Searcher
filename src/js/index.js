@@ -13,7 +13,6 @@ const moviesDetailsModel = new MoviesDetails();
 const likes = new Likes();
 
 const controlLike = (id) => {
-
     const img = `${imagesModel.result.secure_url}${imagesModel.result.poster_sizes[3]}/${moviesDetailsModel.result.poster_path}`;
     if (!likes.isLiked(id)) {
         likes.addLike(
@@ -22,7 +21,8 @@ const controlLike = (id) => {
             img
         );
         app.toggleLikeBtn(true);
-        console.log(likes.likes, "likes");
+        const moviesCount = document.querySelector("[data-selector='likes-length']");
+        moviesCount.textContent = `(${likes.getNumLikes()})`;
         document.querySelector("[data-selector='header-icon']").addEventListener("click", () => app.renderLikeView(likes.likes));
     } else {
         likes.deleteLike(id);

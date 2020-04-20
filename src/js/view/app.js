@@ -12,32 +12,32 @@ export default class App {
 
     renderHomePageContent() {
         return `
-<div class="d-flex justify-content-between py-4 px-3">
-<h2>Popular Movies</h2>
-<button class="btn btn-outline-secondary align-self-center" data-selector="popular-movies-button">View all movies</a>
-</div>
-<section class="section d-flex flex-wrap text-center" data-selector="popular"></section>
-<div class="d-flex justify-content-between py-4 px-3">
-<h2>Highest Rated Movies</h2>
-<button class="btn btn-outline-secondary align-self-center" data-selector="topRated-movies-button">View all movies</button>
-</div>
-<section class="section d-flex flex-wrap text-center" data-selector="top-rated"></section>
-<div class="d-flex justify-content-between py-4 px-3">
-<h2>Now playing</h2>
-<button class="btn btn-outline-secondary align-self-center" data-selector="nowPlaying-movies-button">View all movies</button>
-</div>
-<section class="section d-flex flex-wrap text-center" data-selector="now_playing"></section>
-<div class="d-flex justify-content-between py-4 px-3">
-<h2>Upcoming</h2>
-<button class="btn btn-outline-secondary align-self-center" data-selector="upcoming-movies-button">View all movies</button>
-</div>
-<section class="section d-flex flex-wrap text-center" data-selector="upcoming"></section>
-`;
+            <div class="d-flex justify-content-between py-4 px-3">
+            <h2>Popular Movies</h2>
+            <button class="btn btn-outline-secondary align-self-center" data-selector="popular-movies-button">View all movies</a>
+            </div>
+            <section class="section d-flex flex-wrap text-center" data-selector="popular"></section>
+            <div class="d-flex justify-content-between py-4 px-3">
+            <h2>Highest Rated Movies</h2>
+            <button class="btn btn-outline-secondary align-self-center" data-selector="topRated-movies-button">View all movies</button>
+            </div>
+            <section class="section d-flex flex-wrap text-center" data-selector="top-rated"></section>
+            <div class="d-flex justify-content-between py-4 px-3">
+            <h2>Now playing</h2>
+            <button class="btn btn-outline-secondary align-self-center" data-selector="nowPlaying-movies-button">View all movies</button>
+            </div>
+            <section class="section d-flex flex-wrap text-center" data-selector="now_playing"></section>
+            <div class="d-flex justify-content-between py-4 px-3">
+            <h2>Upcoming</h2>
+            <button class="btn btn-outline-secondary align-self-center" data-selector="upcoming-movies-button">View all movies</button>
+            </div>
+            <section class="section d-flex flex-wrap text-center" data-selector="upcoming"></section>
+            `;
     }
 
-    render() {
+    render(likesLength) {
         let html = `
-            ${header.renderHeader()}
+            ${header.renderHeader(likesLength)}
             <div class="container pb-4" data-selector="main-content">
                
             </div>
@@ -63,6 +63,7 @@ export default class App {
             }
         })
         const current = e.target.parentElement;
+        console.log(current, "cur");
         current.classList.add("active");
     }
 
@@ -117,20 +118,24 @@ export default class App {
 
     renderLikeView(arr) {
         const mainContent = document.querySelector("[data-selector='main-content']");
+        mainContent.innerHTML = "";
+        const div = document.createElement("div");
+        div.className = "row section";
         const html = arr.map(item => {
             const section = `
-    <div data-selector="${item.id}">
-        <div class="col-12 col-md-6  col-lg-4 pt-5 section__title section__detailsTitle text-center">
-            <h3>${item.title}</h3>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-            <div><img src="${item.img}" class="section__img section__details w-100" alt="${item.title}">
+        <div class="col-12 col-md-6 col-lg-4 pb-5 px-3" data-selector="${item.id}">
+            <div class="pt-5 section__title section__detailsTitle text-center">
+                <h3>${item.title}</h3>
+            </div>
+            <div>
+                <img src="${item.img}" class="section__details w-100" alt="${item.title}">
             </div>
         </div>
-    </div> `;
+        `;
             return section;
         }).join("");
+        div.innerHTML = html;
+        mainContent.appendChild(div);
 
-        mainContent.innerHTML = html;
     }
 }
