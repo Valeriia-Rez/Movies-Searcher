@@ -26,7 +26,7 @@ export default class Header {
     }
 
 
-    renderHeader() {
+    renderHeader(likes) {
         return `
         <header class="header">
                <div class="header__wrapper d-flex justify-content-between align-items-center px-3 px-lg-4 py-4" data-selector="header-wrapper">
@@ -53,7 +53,7 @@ export default class Header {
                         </nav>
                     </div>
                         <div class="header__icon text-white" data-selector="header-icon" >
-                            <span class="pr-2" data-selector="likes-length">(0)</span><i class="fas fa-heart icon"></i>
+                            <span class="pr-2" data-selector="likes-length">(${likes})</span><i class="fas fa-heart icon"></i>
                         </div>
                     </div>
                   </div>
