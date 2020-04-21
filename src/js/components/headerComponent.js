@@ -44,11 +44,11 @@ export default class Header {
                     <div class="header__navbar d-none d-md-block">
                         <nav class="header__nav">
                             <ul class="list-group list-group-horizontal header__menu">
-                                <li><a href="#" class="header__link menu px-2 px-lg-3 activeDesktop" data-selector="home-movies-link">Home</a></li>
-                                <li><a href="#top_rated" class="header__link menu pr-2 pr-lg-3" data-selector="highest-movies-link">Highest Rated</a></li>
-                                <li><a href="#popular" class="header__link menu pr-2 pr-lg-3" data-selector="popular-movies-link">Most Popular</a></li>
-                                <li><a href="#now_playing" class="header__link menu pr-2 pr-lg-3" data-selector="nowPlaying-movies-link">Now playing</a></li>
-                                <li><a href="#upcoming" class="header__link menu" data-selector="upcoming-movies-link">Upcoming</a></li>
+                                <li class="menu activeDesktop" data-selector="home-movies-link"><a href="#" class="header__link px-2 px-lg-3" >Home</a></li>
+                                <li class="menu" data-selector="highest-movies-link"><a href="#top_rated" class="header__link pr-2 pr-lg-3">Highest Rated</a></li>
+                                <li class="menu" data-selector="popular-movies-link"><a href="#popular" class="header__link pr-2 pr-lg-3">Most Popular</a></li>
+                                <li class="menu" data-selector="nowPlaying-movies-link"><a href="#now_playing" class="header__link pr-2 pr-lg-3">Now playing</a></li>
+                                <li class="menu" data-selector="upcoming-movies-link"><a href="#upcoming" class="header__link">Upcoming</a></li>
                             </ul>
                         </nav>
                     </div>

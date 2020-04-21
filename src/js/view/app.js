@@ -67,18 +67,26 @@ export default class App {
     }
 
     setActiveStateOnDesktopNavigation(e) {
+
+        console.log("set")
         document.querySelectorAll(".menu").forEach(item => {
             if (item.classList.contains("activeDesktop")) {
                 item.classList.remove("activeDesktop");
             }
         });
-        const current = e.target;
+        const current = e.target.parentElement;
+        console.log(current, "cur")
         current.classList.add("activeDesktop");
+        console.log(current, "act")
     }
 
     renderSection(props) {
         const mainContent = document.querySelector("[data-selector='main-content']");
-        const section = `<div class="d-flex flex-wrap py-5 section" data-selector="${props.selector}"></div>`;
+        const section = `
+        <div>
+            <h1>${props.sectionTitle} Movies</h1>
+            <div class="d-flex flex-wrap pt-5 section" data-selector="${props.selector}"></div>
+        </div>`;
         mainContent.innerHTML = section;
         this.renderMoviesList(props);
     }
@@ -116,24 +124,23 @@ export default class App {
     }
 
     renderLikeView(arr) {
-        const mainContent = document.querySelector("[data-selector='main-content']");
-        mainContent.innerHTML = "";
-        const div = document.createElement("div");
-        div.className = "row section";
-        const html = arr.map(item => {
-            const section = `
-        <div class="col-12 col-md-6 col-lg-4 pb-5 px-3" data-selector="${item.id}">
-            <div class="pt-5 section__title section__detailsTitle text-center">
-                <h3>${item.title}</h3>
-            </div>
-            <div>
-                <img src="${item.img}" class="section__details w-100" alt="${item.title}">
-            </div>
-        </div>
-        `;
-            return section;
-        }).join("");
-        div.innerHTML = html;
-        mainContent.appendChild(div);
+            const mainContent = document.querySelector("[data-selector='main-content']");
+            const html = `<div class="row section pt-5">
+                <div><h1>Liked Movies</h1></div>
+            
+            ${arr.map(item =>
+            `<div class="col-12 col-sm-6 col-lg-3 pb-2" data-selector="movies-item" data-id="${item.id}">
+                <div>
+                    <img src="${item.img}" class="section__img w-100" alt="${item.title}">
+                </div>
+                <div class="pt-2 section__title section__detailsTitle text-center">
+                    <h3>${item.title}</h3>
+                </div>
+            </div>`
+            ).join("")}
+            </div>`
+      
+        mainContent.innerHTML = html;
+
     }
 }

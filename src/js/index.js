@@ -24,13 +24,18 @@ const controlLike = (id) => {
         app.toggleLikeBtn(true);
         const moviesCount = document.querySelector("[data-selector='likes-length']");
         moviesCount.textContent = `(${likes.getNumLikes()})`;
+
     } else {
         likes.deleteLike(id);
         app.toggleLikeBtn(false);
+        const moviesCount = document.querySelector("[data-selector='likes-length']");
+        moviesCount.textContent = `(${likes.getNumLikes()})`;
     }
+
 }
 
 const renderMoviesItem = async(e) => {
+
     if (e) {
         const itemId = e.target.parentElement.parentElement.dataset.id;
         location.hash = itemId;
@@ -45,6 +50,8 @@ const renderMoviesItem = async(e) => {
     }
     app.renderMoviesItem(props);
     document.querySelector("[data-selector='movies-icon']").addEventListener("click", () => controlLike(id));
+
+
 }
 
 const renderMoviesSection = async(sectionType) => {
@@ -52,11 +59,18 @@ const renderMoviesSection = async(sectionType) => {
     const popular = movies.result && movies.result[sectionType];
     location.hash = sectionType;
     const sectionTypeFromURL = location.hash.replace("#", "");
+    const sectionTitles = {
+        popular: "Popular",
+        top_rated: "Highest Rated",
+        now_playing: "Now Playing",
+        upcoming: "Upcoming"
+    }
     let props = {
         url: images.secure_url,
         size: images.poster_sizes[2],
         selector: sectionTypeFromURL,
-        page: "section"
+        page: "section",
+        sectionTitle: sectionTitles[sectionType]
     }
 
     if (popular) {
@@ -68,21 +82,45 @@ const renderMoviesSection = async(sectionType) => {
         app.renderSection(props);
     }
     document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
+
+}
+
+const renderLikeSection = () => {
+    const likesData = likes.readStorage();
+    app.renderLikeView(likesData);
+    document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
+}
+
+const renderEventListeners = () => {
+    document.querySelectorAll("[data-selector='upcoming-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("upcoming")));
+    document.querySelectorAll("[data-selector='nowPlaying-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("now_playing")));
+    document.querySelectorAll("[data-selector='popular-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("popular")));
+    document.querySelectorAll("[data-selector='highest-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("top_rated")));
+    document.querySelector("[data-selector='header-icon']").addEventListener("click", renderLikeSection);
+    document.querySelector("[data-selector='mobile-open']").addEventListener("click", app.openMobileMenu);
+    document.querySelector("[data-selector='mobile-close']").addEventListener("click", app.closeMobileMenu);
+    document.querySelectorAll("[data-selector='mobile-link']").forEach(item => item.addEventListener("click", app.setActiveStateOnMobileNavigation));
+    document.querySelectorAll(".menu").forEach(item => item.addEventListener("click", app.setActiveStateOnDesktopNavigation));
 }
 
 const renderApp = async() => {
     const likesLength = likes.getNumLikes();
-    app.render(likesLength);
     const page = location.hash;
+    app.render(likesLength);
     const images = await imagesModel.getImages();
-    const likesData = likes.readStorage();
-    document.querySelector("[data-selector='header-icon']").addEventListener("click", () => app.renderLikeView(likesData));
+
     if (["#popular", "#top_rated", "#now_playing", "#upcoming"].includes(page)) {
-        return renderMoviesSection(page.replace("#", ""), images);
+        renderMoviesSection(page.replace("#", ""), images);
+        renderEventListeners();
+        return;
     }
     if (page) {
-        return renderMoviesItem();
+        renderMoviesItem();
+        renderEventListeners();
+        console.log("render")
+        return;
     }
+
     const main = document.querySelector("[data-selector='main-content']");
     let popularMoviesResult, highestMoviesResult, nowPlayingMoviesResult, upcomingMoviesResult;
     if (!page) {
@@ -127,21 +165,13 @@ const renderApp = async() => {
         page: "main"
     }
     app.renderMoviesList(upcomingMoviesProps);
-
-    document.querySelectorAll(".menu").forEach(item => item.addEventListener("click", app.setActiveStateOnDesktopNavigation));
-    document.querySelectorAll("[data-selector='mobile-link']").forEach(item => item.addEventListener("click", app.setActiveStateOnMobileNavigation));
+    renderEventListeners();
     document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
     document.querySelectorAll("[data-selector='home-movies-link']").forEach(item => item.addEventListener("click", renderApp));
-    document.querySelectorAll("[data-selector='upcoming-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("upcoming")));
-    document.querySelectorAll("[data-selector='nowPlaying-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("now_playing")));
-    document.querySelectorAll("[data-selector='popular-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("popular")));
-    document.querySelectorAll("[data-selector='highest-movies-link']").forEach(item => item.addEventListener("click", () => renderMoviesSection("top_rated")));
     document.querySelector("[data-selector='upcoming-movies-button']").addEventListener("click", () => renderMoviesSection("upcoming"));
     document.querySelector("[data-selector='nowPlaying-movies-button']").addEventListener("click", () => renderMoviesSection("now_playing"));
     document.querySelector("[data-selector='popular-movies-button']").addEventListener("click", () => renderMoviesSection("popular"));
     document.querySelector("[data-selector='topRated-movies-button']").addEventListener("click", () => renderMoviesSection("top_rated"));
-    document.querySelector("[data-selector='mobile-open']").addEventListener("click", app.openMobileMenu);
-    document.querySelector("[data-selector='mobile-close']").addEventListener("click", app.closeMobileMenu);
 }
 
 window.addEventListener("DOMContentLoaded", renderApp);
