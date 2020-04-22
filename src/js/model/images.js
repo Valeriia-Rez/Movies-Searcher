@@ -9,7 +9,6 @@ export default class Images {
     async getImages() {
         try {
             const res = await axios(`https://api.themoviedb.org/3/configuration?api_key=${this.key}`);
-
             this.result = {
                 result: res.data.images,
                 secure_url: res.data.images.secure_base_url,
@@ -19,6 +18,5 @@ export default class Images {
         } catch (error) {
             alert("error");
         }
-
     }
 }

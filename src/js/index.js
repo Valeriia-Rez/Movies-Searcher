@@ -6,7 +6,6 @@ import Images from "./model/images";
 import MoviesDetails from "./model/moviesDetails";
 import Likes from "./model/likes";
 
-
 const app = new App();
 const imagesModel = new Images();
 const movies = new Movies();
@@ -31,11 +30,9 @@ const controlLike = (id) => {
         const moviesCount = document.querySelector("[data-selector='likes-length']");
         moviesCount.textContent = `(${likes.getNumLikes()})`;
     }
-
 }
 
 const renderMoviesItem = async(e) => {
-
     if (e) {
         const itemId = e.target.parentElement.parentElement.dataset.id;
         location.hash = itemId;
@@ -50,8 +47,6 @@ const renderMoviesItem = async(e) => {
     }
     app.renderMoviesItem(props);
     document.querySelector("[data-selector='movies-icon']").addEventListener("click", () => controlLike(id));
-
-
 }
 
 const renderMoviesSection = async(sectionType) => {
@@ -82,7 +77,6 @@ const renderMoviesSection = async(sectionType) => {
         app.renderSection(props);
     }
     document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
-
 }
 
 const renderLikeSection = () => {
@@ -117,7 +111,6 @@ const renderApp = async() => {
     if (page) {
         renderMoviesItem();
         renderEventListeners();
-        console.log("render")
         return;
     }
 
@@ -165,6 +158,7 @@ const renderApp = async() => {
         page: "main"
     }
     app.renderMoviesList(upcomingMoviesProps);
+
     renderEventListeners();
     document.querySelectorAll("[data-selector='movies-item']").forEach(item => item.addEventListener("click", renderMoviesItem));
     document.querySelectorAll("[data-selector='home-movies-link']").forEach(item => item.addEventListener("click", renderApp));

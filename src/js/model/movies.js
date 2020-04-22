@@ -10,14 +10,11 @@ export default class Movies {
     async getListMovies(type) {
         try {
             const res = await axios(`https://api.themoviedb.org/3/movie/${type}?api_key=${this.key}&language=en-US&page=1`);
-
             this.result = {
                 ...this.result,
                 [type]: res.data.results
             }
-
             return this.result[type];
-
         } catch (error) {
             alert("error");
         }

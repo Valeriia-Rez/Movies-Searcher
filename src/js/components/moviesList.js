@@ -24,7 +24,7 @@ export const renderMovies = (props) => {
                 `;
 
             const div = document.createElement("div");
-            div.className = "col-12 col-md-6 col-lg-3 pb-3";
+            div.className = "col-12 col-sm-6 col-lg-3 pb-3";
             div.innerHTML = html;
             let popular = document.querySelector(`[data-selector='${selector}']`);
             popular.appendChild(div);

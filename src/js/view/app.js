@@ -5,6 +5,9 @@ import { renderMovies } from "../components/moviesList";
 const header = new Header();
 
 export default class App {
+    constructor() {
+
+    }
 
     renderMoviesList(props) {
         renderMovies(props);
@@ -43,7 +46,6 @@ export default class App {
             </div>
             ${renderFooter()}
         `;
-
         const app = document.querySelector("[data-selector='app']");
         app.innerHTML = html;
     }
@@ -67,25 +69,21 @@ export default class App {
     }
 
     setActiveStateOnDesktopNavigation(e) {
-
-        console.log("set")
         document.querySelectorAll(".menu").forEach(item => {
             if (item.classList.contains("activeDesktop")) {
                 item.classList.remove("activeDesktop");
             }
         });
         const current = e.target.parentElement;
-        console.log(current, "cur")
         current.classList.add("activeDesktop");
-        console.log(current, "act")
     }
 
     renderSection(props) {
         const mainContent = document.querySelector("[data-selector='main-content']");
         const section = `
         <div>
-            <h1>${props.sectionTitle} Movies</h1>
-            <div class="d-flex flex-wrap pt-5 section" data-selector="${props.selector}"></div>
+            <h2 class="py-5 text-center">${props.sectionTitle} Movies</h2>
+            <div class="d-flex flex-wrap section" data-selector="${props.selector}"></div>
         </div>`;
         mainContent.innerHTML = section;
         this.renderMoviesList(props);
@@ -125,22 +123,24 @@ export default class App {
 
     renderLikeView(arr) {
             const mainContent = document.querySelector("[data-selector='main-content']");
-            const html = `<div class="row section pt-5">
-                <div><h1>Liked Movies</h1></div>
-            
-            ${arr.map(item =>
-            `<div class="col-12 col-sm-6 col-lg-3 pb-2" data-selector="movies-item" data-id="${item.id}">
-                <div>
-                    <img src="${item.img}" class="section__img w-100" alt="${item.title}">
+            const html = `
+            <div class="row pt-5">
+                <div class="col-12 text-center">
+                    <h2>Liked Movies</h2>
                 </div>
-                <div class="pt-2 section__title section__detailsTitle text-center">
-                    <h3>${item.title}</h3>
-                </div>
-            </div>`
+            </div>
+            <div class="row section pt-5">
+                ${arr.map(item =>
+                `<div class="col-12 col-sm-6 col-lg-3 pb-2" data-selector="movies-item" data-id="${item.id}">
+                    <div>
+                        <img src="${item.img}" class="section__img w-100" alt="${item.title}">
+                    </div>
+                    <div class="pt-2 section__title section__detailsTitle text-center">
+                        <h3>${item.title}</h3>
+                    </div>
+                </div>`
             ).join("")}
             </div>`
-      
-        mainContent.innerHTML = html;
-
-    }
+      mainContent.innerHTML = html;
+}
 }

@@ -9,7 +9,7 @@
     &__wrapper {
         max-width: 1360px;
         margin: 0 auto;
-        border-bottom: 2px solid #411836;
+        border-bottom: 2px solid $borderColor;
     }
     &__mobile {
         background: url("/img/photo.jpg");

@@ -25,7 +25,6 @@ export default class Header {
         }
     }
 
-
     renderHeader(likes) {
         return `
         <header class="header">
@@ -41,8 +40,8 @@ export default class Header {
                     <div class="pt-2">
                         <h3 class="header__heading"><a href="#">ONLINE MOVIES</a></h3>
                     </div>
-                    <div class="header__navbar d-none d-md-block">
-                        <nav class="header__nav">
+                    <div class="d-none d-md-block">
+                        <nav>
                             <ul class="list-group list-group-horizontal header__menu">
                                 <li class="menu activeDesktop" data-selector="home-movies-link"><a href="#" class="header__link px-2 px-lg-3" >Home</a></li>
                                 <li class="menu" data-selector="highest-movies-link"><a href="#top_rated" class="header__link pr-2 pr-lg-3">Highest Rated</a></li>
